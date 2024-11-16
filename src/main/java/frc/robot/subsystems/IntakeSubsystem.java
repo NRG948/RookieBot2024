@@ -41,10 +41,11 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     public void setMotorVoltage(double voltage) {
         motor.setVoltage(voltage);
+        isEnabled = true;
     }
     public void in() {
         isEnabled = true;
-        motor.set(0.8);// from 0 to 1
+        motor.set(0.8); // from 0 to 1
     }
     public void out() {
         isEnabled = true;
@@ -52,6 +53,9 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     public void disable() {
         isEnabled = false;
+        motor.stopMotor();
+    }
+    public void stopMotor() {
         motor.stopMotor();
     }
     @Override
