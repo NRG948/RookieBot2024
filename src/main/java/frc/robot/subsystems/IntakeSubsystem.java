@@ -14,9 +14,8 @@ public class IntakeSubsystem extends SubsystemBase {
     private final CANcoder encoder = new CANcoder(0);
 
     private boolean isEnabled = false;
-    private double goalVelocity;
     private double currentVelocity;
-
+ 
     public static double GEAR_RATIO = 1; //constant (change value later)
     public static double INTAKE_DIAMETER = 0.036; //diameter in meters
     public static double ENCODER_CONVERSION_FACTOR = 
