@@ -8,8 +8,10 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeUsingController;
+import frc.robot.commands.ShootUsingController;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,6 +28,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem intake = new IntakeSubsystem();
+  private final ShooterSubsystem shooter = new ShooterSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -35,6 +38,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     intake.setDefaultCommand(new IntakeUsingController(intake, m_OperatorController));
+    shooter.setDefaultCommand(new ShootUsingController(shooter, m_OperatorController)); 
     // Configure the trigger bindings
     configureBindings();
   }
@@ -53,6 +57,7 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
+
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
@@ -70,6 +75,6 @@ public class RobotContainer {
   public void initShuffleboard() {
     ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
     intake.addShuffleBoardLayout(intakeTab);
-    
+
   }
 }
