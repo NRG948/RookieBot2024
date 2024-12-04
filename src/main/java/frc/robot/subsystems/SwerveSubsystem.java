@@ -2,6 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+// A bunch of imports yay
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.StatusSignal;
@@ -19,8 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class SwerveSubsystem extends SubsystemBase {
-  /** Creates a new SwerveSubsystem. */
-  
+  // Initializes Drive and Steer Motors, 2 motors each wheel or something
   private final TalonFX frontLeftDriveMotor = new TalonFX(8);
   private final CANSparkMax frontLeftSteerMotor = new CANSparkMax(9, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
   private final TalonFX frontRightDriveMotor = new TalonFX(19);
@@ -30,14 +30,19 @@ public class SwerveSubsystem extends SubsystemBase {
   private final TalonFX backRightDriveMotor = new TalonFX(13);
   private final CANSparkMax backRightSteerMotor = new CANSparkMax(18, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
   
-  //4 CANcoders to give us Angles
+  // 4 CANcoders to give us Angles
   private final CANcoder frontLeftAngle = new CANcoder(33);
   private final CANcoder frontRightAngle = new CANcoder(34);
   private final CANcoder backLeftAngle = new CANcoder(32);
   private final CANcoder backRightAngle = new CANcoder(31);
 
-  private final SwerveModule frontLeftModule = createSwerveModule(backLeftDriveMotor, backLeftSteerMotor, backLeftAngle, 0, "FrontLeftModule");
-  //TO-DO FINISH the method with the return statement
+  private final SwerveModule frontLeftModule = createSwerveModule(frontLeftDriveMotor, frontLeftSteerMotor, frontLeftAngle, 0, "FrontLeftModule");
+  private final SwerveModule frontRightModule = createSwerveModule(frontRightDriveMotor, frontRightSteerMotor, frontRightAngle, 0, "FrontRightModule");
+  private final SwerveModule backLeftModule = createSwerveModule(backLeftDriveMotor, backLeftSteerMotor,backLeftAngle, 0, "backLeftModule");
+  private final SwerveModule backRightModule = createSwerveModule(backRightDriveMotor, backRightSteerMotor,backRightAngle, 0, "backRightModule");
+
+  // TO-DO FINISH the method with the return statement
+  // Inside each SwerveModule:
   private static SwerveModule createSwerveModule(
     TalonFX driveMotor,
     CANSparkMax steeringMotor,
@@ -48,14 +53,15 @@ public class SwerveSubsystem extends SubsystemBase {
       steeringMotor.setIdleMode(IdleMode.kBrake);
       steeringMotor.setInverted(false);
       CANcoderConfigurator wheelAngleConfigurator = wheelAngle.getConfigurator();
-      CANcoderConfigurator wheelAngleConfig = new CANcoderConfigurator(null);
+      CANcoderConfigurator ConfigWheelAngle = new CANcoderConfigurator(null);
 
-      final double metersPerRotation = 4 * Math.PI / 8.14;
+      final double metersPerRotation = 4 * Math.PI / 8.14; //TO-DO: 8.14 might not be correct, 4 also might not be correct
       StatusSignal<Double> drivePosition = driveMotor.getPosition();
       StatusSignal<Double> driveVelocity = driveMotor.getVelocity();
       StatusSignal<Double> WheelDirection = wheelAngle.getAbsolutePosition();
       StatusSignal<Double> AngularVelocity = wheelAngle.getVelocity();
-      // change constant for SwerveModule
+      
+      // TO-DO: change constant for SwerveModule (don't have null there)
       return new SwerveModule(null, name);
 
     }
